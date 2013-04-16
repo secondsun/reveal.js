@@ -1,378 +1,279 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+        <title>reveal.js - The HTML Presentation Framework</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/aerogear.css" id="theme">
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/aerogear.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write('<link rel="stylesheet" href="css/print/' + (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper') + '.css" type="text/css" media="print">');
+        </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
 
-	<body>
+    <body>
 
-		<div class="reveal">
+        <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>RESTful services with AeroGear</h1>
+                    <h3>Probably the worst title for this talk.</h3>
+                    <p>
+                        <small><a href="http://github.com/secondsun">Summers Pittman</a> / <a href="http://twitter.com/aerogear">@aerogear</a></small>
+                    </p>
+                </section>
+                <section>
+                    <h2>Introduction</h2>
+                    <ul>
+                        <li>Azbout AeroGear</li>
+                        <li>AeroGear on Android</li>
+                        <li>AjugBook an AeroGear server application</li>
+                        <li>AjugBook on Android</li>
+                        <li>AGReddit: Consuming a third party service</li>
+                    </ul>
+                </section>
+                <section>
+                    <section>
+                        <h2>What is AeroGear?</h2>
+                        <ul>
+                            <li>Server</li>
+                            <li>Mobile</li>
+                            <li>Community</li>
+                        </ul>
+                    </section>    
+                    <section>
+                        <h2>AeroGear Controller</h2>
+                        <p>Designed to bring Java EE services to mobile devices.</p>
+                        <p>Very lightweight MVC layer</p>
+                        <p>Uses JSON and RESTful services to bridge server and client</p>
+                    </section>    
+                    <section>
+                        <h2>AeroGear Clients</h2>
+                        <p>Client libraries supporting Android, iOS, JavaScript, and Cordova</p>
+                        <p>Wraps and exposes native services using a common API language</p>
+                    </section>    
+                    <section>
+                        <h2>AeroGear Clients</h2>
+                        <pre><code class="java">
+URL todoURL = new URL("http://todo-aerogear.rhcloud.com/todo-server/");
+Pipeline pipeline = new Pipeline(todoURL);
 
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>HTML Presentations Made Easy</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
-				</section>
+PipeConfig todoConfig = new PipeConfig(Todo.class, todoURL);
+Pipe<Todo> todo = pipeline.pipe(todoConfig);
 
-				<section>
-					<h2>Heads Up</h2>
-					<p>
-						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
-						support for CSS 3D transforms to see it in its full glory.
-					</p>
+                                    </code></pre>
+                    </section>    
+                    <section>
+                        <h2>AeroGear Clients</h2>
+                        <pre><code class="objectivec">
+// NSURL object:
+NSURL* serverURL = [NSURL URLWithString:@"http://todo-aerogear.rhcloud.com/todo-server/"];
 
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
+// create the 'todo' pipeline, which points to the baseURL of the REST application
+AGPipeline* todo = [AGPipeline pipelineWithBaseURL:serverURL];
 
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>
-							Slides can be nested inside of other slides,
-							try pressing <a href="#" class="navigate-down">down</a>.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Press down or up to navigate.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>Cornify</p>
-						<a class="test" href="http://cornify.com">
-							<img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 3</h2>
-						<p>That's it, time to go back up.</p>
-						<a href="#/2" class="image">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
-						</a>
-					</section>
-				</section>
+// Add a REST pipe for the 'projects' endpoint
+id<AGPipe> todoPipe = [todo pipe:^(id<AGPipeConfig> config) {
+    [config setName:@"todo"];
+    [config setType:@"REST"]; // this is the default, can be emitted
+}]; 
+                                    </code></pre>
+                                        </section>    
+                                        <section>
+                                            <h2>AeroGear Clients</h2>
+                                            <pre><code class="javascript">
+var todoPipe  = AeroGear.Pipeline([{
+    name: "todo",
+    settings: {
+        baseURL: "/"
+    }
+}  ]).pipes.todo;
+                                    </code></pre>
+                                        </section>    
+                                        <section>
+                                            <h2>AeroGear Clients</h2>
+                                            <pre><code contenteditable>
+todoPipe.read(callback);
+                                    </code></pre>
+                                        </section>    
+                                        <section>
+                                            <h2>AeroGear Community</h2>
+                                            <p>Open source sponsored by Red Hat</p>
+                                            <p>#aerogear on freenode</p>
+                                            <p>@aerogear on Twitter</p>
+                                            <p>aerogear-dev@lists.jboss.org</p>
+                                            <p><a href="http://www.aerogear.org">www.aerogear.org</a></p>
+                                            <p><a href="http://github.com/aerogear">On GitHub</a></p>
+                                        </section>    
+                                        </section>
+                                        <section>
+                                            <section>
+                                                <h2>Aerogear Controller</h2>
+                                                <p>Uses Java EE technologies</p>
+                                                <p>CDI and Servlet Filters</p>
+                                                <p>Security using PicketLink</p>
+                                            </section>
+                                            <section>
+                                                <h2>Aerogear Controller</h2>
+                                                <p>Routes.java</p>
+                                                <pre><code class="java">
+route().on(Exception.class)
+        .produces(JSP, JSON)
+        .to(Error.class).index(param(Exception.class));
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview. Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
+route().from("/")
+        .on(RequestMethod.GET)
+        .consumes(MediaType.ANY)
+        .produces(JSP)
+        .to(IndexController.class).index();
 
-				<section>
-					<h2>rvl.io</h2>
-					<p>
-						If you don't like writing slides in HTML you can use the online editor <a href="http://www.rvl.io" target="_blank">rvl.io</a>.
-					</p>
-				</section>
+route().from("/login")
+       .on(RequestMethod.GET)
+       .consumes(MediaType.ANY)
+       .produces(JSP)
+       .to(LoginController.class).index();
 
-				<section>
-					<h2>Works in Mobile Safari</h2>
-					<p>
-						Try it out! You can swipe through the slides and pinch your way to the overview.
-					</p>
-				</section>
+route().from("/login")
+        .on(RequestMethod.POST)
+        .consumes(MediaType.ANY)
+        .produces(JSP)
+        .to(LoginController.class).login(param(AeroGearUser.class));
+</code></pre>
+                                            </section>
+                                            <section>
+                                                <h2>AeroGear Controller - Future</h2>
+                                                <p>Sync and Offline</p>
+                                                <p>Push and Notifications</p>
+                                                <p>Multipart</p>
+                                                <p>Social</p>
+                                            </section>
+                                        </section>
+                                        <section>
+                                            <section>
+                                                <h2>AeroGear on Android</h2>
+                                            </section>
+                                            <section>
+                                                <h2>AeroGear on Android</h2>
+                                                <p>Networking in Android is hard</p>
+                                                <p>Activity lifecycle is problematic</p>
+                                                <p>Battery life can be an issue</p>
+                                            </section>
+                                            <section>
+                                                <h2>AeroGear on Android</h2>
+                                                <p>Android uses Java</p>
+                                                <pre><code class="java">
+URL devNexusURL = null;
+HttpURLConnection devNexusConnection = null;
+InputStream devNexusInputStream = null;
+ByteArrayOutputStream byteStream = new ByteArrayOutputStream(1024);
+byte[] byteArray = new byte[1024];
+int length = -1;
 
-				<section>
-					<h2>Marvelous Unordered List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
+devNexusURL = new URL("http://devnexus.com/s/speakers.json");
 
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
-
-						For those of you who like that sort of thing. Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
-
-							<section data-markdown>
-							  ## Markdown support
-
-							  For those of you who like that sort of thing.
-							  Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
-							</section>
-					</script>
-				</section>
-
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=cube#/transitions">Cube</a> -
-						<a href="?transition=page#/transitions">Page</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a> -
-						<a href="?transition=linear#/transitions">Linear</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?#/transitions">Default</a>
-					</p>
-				</section>
-
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						Reveal.js comes with a few themes built in: <br>
-						<a href="?theme=sky#/themes">Sky</a> -
-						<a href="?theme=beige#/themes">Beige</a> -
-						<a href="?theme=simple#/themes">Simple</a> -
-						<a href="?theme=serif#/themes">Serif</a> -
-						<a href="?theme=night#/themes">Night</a> -
-						<a href="?#/themes">Default</a>
-					</p>
-					<p>
-						<small>
-							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
-						</small>
-					</p>
-				</section>
-
-				<section>
-					<section data-state="alert">
-						<h2>Global State</h2>
-						<p>
-							Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-							will be added as a class to the document element when the slide is open. This lets you
-							apply broader style changes, like switching the background.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-state="blackout">
-						<h2>"blackout"</h2>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-state="soothe">
-						<h2>"soothe"</h2>
-						<a href="#" class="image navigate-next">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(-90deg);">
-						</a>
-					</section>
-				</section>
-
-				<section data-state="customevent">
-					<h2>Custom Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code contenteditable style="font-size: 18px; margin-top: 20px;">Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						The nice thing about standards is that there are so many to choose from</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.
-					</blockquote>
-				</section>
-
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
-
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) ) {
-        node.className += ' roll';
-      }
-    };
-  }
+devNexusConnection = (HttpURLConnection) devNexusURL.openConnection();
+devNexusInputStream = devNexusConnection.getInputStream();
+while((length = devNexusInputStream.read(byteArray)) != -1) {
+    byteStream.write(byteArray, 0, length);
 }
-					</code></pre>
-					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
 
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
+String httpResult = new String(byteStream.toByteArray(),Charset.defaultCharset());
+Log.d("RESULT", httpResult);
+        } catch (Exception e) {
+                Log.e("EXCEPTION", e.getMessage(), e);
+                throw new RuntimeException(e);
+        }
+}
+</code></pre>
+                                            </section>
+                                            <section>
+                                                <h2>AeroGear on Android</h2>
+                                                <p>But that code isn't Android</p>
+                                                <p>Network can't run on main thread</p>
+                                                <p>Activities have a lifecycle which must be respected</p>
+                                                <p>Mobile devices have other constraints</p>
+                                            </section>
+                                            <section>
+                                                <h2>AeroGear on Android</h2>
+                                                <p>AeroGear handles the Activity lifecycle</p>
+                                                <p>Pipe can be backed with a Loader</p>
+                                                <p>Activity aware callbacks</p>
+                                                <p>More on this Later</p>
+                                            </section>
+                                            <section>
+                                                <h2>AeroGear on Android Future</h2>
+                                                <p>Integrate AG Security with Accounts and Sync</p>
+                                                <p>Offline</p>
+                                                <p>Notifications and native push</p>
+                                            </section>
+                                        </section>
 
-				<section>
-					<section>
-						<h2>Fragmented Views</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<ol>
-							<li class="fragment"><code>any type</code></li>
-							<li class="fragment"><em>of view</em></li>
-							<li class="fragment"><strong>fragments</strong></li>
-						</ol>
+                                        </div>
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's a few styles of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment roll-in">roll-in</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-green">highlight-green</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
-				</section>
+                                        </div>
 
-				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-					</a>
-				</section>
+                                        <script src="lib/js/head.min.js"></script>
+                                        <script src="js/reveal.min.js"></script>
 
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
-					<iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
-					<script>
-						document.getElementById('slideshare').attributeName = 'allowfullscreen';
-					</script>
-				</section>
+                                        <script>
 
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen
-						during a presentation.
-					</p>
-				</section>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-				<section>
-					<h2>Stellar Links</h2>
-					<ul>
-						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
-						<li><a href="http://hakim.se/projects/reveal-js">Leave feedback on my site</a></li>
-						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
-					</ul>
-				</section>
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    {src: 'lib/js/classList.js', condition: function() {
+                            return !document.body.classList;
+                        }},
+                    {src: 'plugin/markdown/showdown.js', condition: function() {
+                            return !!document.querySelector('[data-markdown]');
+                        }},
+                    {src: 'plugin/markdown/markdown.js', condition: function() {
+                            return !!document.querySelector('[data-markdown]');
+                        }},
+                    {src: 'plugin/highlight/highlight.js', async: true, callback: function() {
+                            hljs.initHighlightingOnLoad();
+                        }},
+                    {src: 'plugin/zoom-js/zoom.js', async: true, condition: function() {
+                            return !!document.body.classList;
+                        }},
+                    {src: 'plugin/notes/notes.js', async: true, condition: function() {
+                            return !!document.body.classList;
+                        }}
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
 
-				<section>
-					<h2>It's free</h2>
-					<p>
-						reveal.js and <a href="http://www.rvl.io">rvl.io</a> are entirely free but if you'd like to support the projects you can donate below.
-						Donations will go towards hosting and domain costs.
-					</p>
-					<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-						<input type="hidden" name="cmd" value="_donations">
-						<input type="hidden" name="business" value="hakim.elhattab@gmail.com">
-						<input type="hidden" name="lc" value="US">
-						<input type="hidden" name="item_name" value="reveal.js / rvl.io">
-						<input type="hidden" name="no_note" value="0">
-						<input type="hidden" name="currency_code" value="USD">
-						<input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
-						<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-					</form>
-				</section>
+                                            </script>
 
-				<section>
-					<h1>THE END</h1>
-					<h3>BY Hakim El Hattab / hakim.se</h3>
-				</section>
-
-			</div>
-
-		</div>
-
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
-
-		<script>
-
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
-
-		</script>
-
-	</body>
-</html>
+                                        </body>
+                                        </html>
