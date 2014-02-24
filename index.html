@@ -76,7 +76,7 @@
 					<section>
 						<h1>Make friends with someone who has an Android phone</h1>
 						<h3>In theory this will work on the emulator.</h3>
-						<h3>In practice: GLWT</h3>
+						<h3>In practice: The Google APIs x86 4.4.2 package works perfectly</h3>
 					</section>
 				</section>
 
@@ -177,6 +177,11 @@
 					<section>
 						<h1>Setting up Googley services</h1>
 						<h3>https://cloud.google.com/console/project</h3>
+						<h3>Create application</h3>
+						<h3>Add GCM and add Google+ APIs</h3>
+						<h3>Add server information</h3>
+						<h3>Add Android key and package (org.devnexus)</h3>
+						<h3>Record keys and other information</h3>
 					</section>
 					<section>
 						<h1>Setting up Unified Push Server</h1>
@@ -190,6 +195,35 @@
 						<h3>Add Postgres Gear</h3>
 						<h3>Configure Postgres</h3>
 						<h3>Configure DevNexus</h3>
+					</section>					
+					<section>
+						<h1>Configure Postgres</h1>
+						<h3>Create devnexus database</h3>
+						<h3>Create devnexus user</h3>
+						<h3>Grant all to devnexus</h3>
+						<h3>Import devnexus.postgres.dmp</h3>
+					</section>
+					<section>
+						<h1>Configure DevNexus</h1>
+						<h3>export TING_HOME</h3>
+						<h3>create ting.properties</h3>
+						<h3>Set ting variables</h3>
+							<pre><code data-trim contenteditable>server.address=
+
+database.hibernate.dialect=
+database.hibernate.show_sql=
+database.jdbc.driverClassName=
+database.jdbc.url=
+database.jdbc.username=
+database.jdbc.password=
+
+TING_CLIENT_ID=
+TING_CLIENT_SECRET=
+TING_PUSH_URL=
+TING_PUSH_APP_ID=
+TING_PUSH_MASTER_SECRET=
+</code></pre>
+
 					</section>
 					<section>
 						<h1>Configuring DevNexus Android app</h1>
